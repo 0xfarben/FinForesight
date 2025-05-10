@@ -11,6 +11,7 @@ A sophisticated financial analysis and trading platform that combines multiple A
 - **Trading Strategies**: AI-powered trading strategy development
 - **Data Archiving**: Systematic storage of historical data and analysis
 - **WebSocket Support**: Real-time updates and notifications
+- **AI Chatbot**: Groq-powered chatbot for real-time market queries and analysis (chat.finforesight.dev)
 
 ## 🛠️ Technology Stack
 
