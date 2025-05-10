@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>Technical Indicators</h1>
+        <p class="text-muted">Calculate and visualize technical indicators for stocks</p>
+    </div>
+</div>
+
+{% if error %}
+<div class="alert alert-danger mb-4">
+    <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Fetch Technical Indicator</h3>
+            </div>
+            <div class="card-body">
+                <form id="technicalIndicatorsForm" action="/technical_indicators" method="post">
+                    <div class="mb-3">
+                        <label for="symbol" class="form-label">Stock Ticker Symbol</label>
+                        <input type="text" class="form-control" id="symbol" name="symbol" placeholder="e.g. AAPL" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="function" class="form-label">Indicator</label>
+                            <select class="form-select" id="function" name="function" required>
+                                <option value="" selected disabled>Select indicator</option>
+                                {% for fn in functions %}
+                                <option value="{{ fn }}">{{ fn }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="interval" class="form-label">Interval</label>
+                            <select class="form-select" id="interval" name="interval" required>
+                                {% for interval in intervals %}
+                                <option value="{{ interval }}">{{ interval }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="time_period" class="form-label">Time Period</label>
+                            <input type="number" class="form-control" id="time_period" name="time_period" value="14" min="1" max="200" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="series_type" class="form-label">Series Type</label>
+                            <select class="form-select" id="series_type" name="series_type">
+                                <option value="close" selected>Close</option>
+                                <option value="open">Open</option>
+                                <option value="high">High</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="days" class="form-label">Number of Results</label>
+                        <input type="number" class="form-control" id="days" name="days" value="30" min="1" max="100">
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calculator me-2"></i> Calculate Indicator
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="indicatorLoading" class="text-center my-4" style="display: none;">
+                    <div class="loading-spinner mb-3"></div>
+                    <p>Calculating indicator...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if results %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">{{ function }} for {{ symbol }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="indicatorChart"></canvas>
+                </div>
+                
+                <table class="table table-dark table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            {% for key in result_keys %}
+                            <th>{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for timestamp, values in results.items() %}
+                        <tr>
+                            <td>{{ timestamp }}</td>
+                            {% for key in result_keys %}
+                            <td>{{ values[key] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create indicator chart
+        const ctx = document.getElementById('indicatorChart');
+        if (!ctx) return;
+        
+        const timestamps = [{% for ts in chart_data.timestamps %}'{{ ts }}',{% endfor %}];
+        const values = [{% for val in chart_data.values %}{{ val }},{% endfor %}];
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timestamps,
+                datasets: [{
+                    label: '{{ function }} ({{ interval }})',
+                    data: values,
+                    borderColor: '#7764e4',
+                    backgroundColor: 'rgba(119, 100, 228, 0.1)',
+                    fill: true,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#a0a0a0'
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#6c757d',
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        display: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#6c757d'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endif %}
+{% endblock %}

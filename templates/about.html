@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="card mt-4 mb-5">
+    <div class="card-body text-center">
+        <h1 class="card-title mb-3">About FinForesight</h1>
+        <p class="lead mb-4">
+            <strong>FinForesight</strong> is an AI-powered financial analysis platform designed to provide unparalleled market insights, trading strategies, predictions, and risk assessments with our autonomous agents. Our mission is to empower investors and traders with advanced analytics and user-friendly tools.
+        </p>
+        <h3 class="mb-3" style="text-decoration: underline; text-underline-offset: 6px;">Creators</h3>
+        <div class="row justify-content-center mb-4 about-creators">
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="creator-ring mb-2">
+                        <img src="{{ url_for('static', filename='img/karthik.jpg') }}" alt="Karthik V" class="creator-img">
+                    </div>
+                    <div class="fw-bold">Karthik V</div>
+                    <a href="https://www.linkedin.com/in/its-karthik-v/" target="_blank" rel="noopener" class="mt-1"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="creator-ring mb-2">
+                        <img src="{{ url_for('static', filename='img/thayeeb.jpg') }}" alt="Mohammed Thayeeb Shariff" class="creator-img">
+                    </div>
+                    <div class="fw-bold">Mohammed Thayeeb Shariff</div>
+                    <a href="https://www.linkedin.com/in/mohammed-thayeeb-shariff-2b614b2b2/" target="_blank" rel="noopener" class="mt-1"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="creator-ring mb-2">
+                        <img src="{{ url_for('static', filename='img/nidith.png') }}" alt="Nidith V S" class="creator-img">
+                    </div>
+                    <div class="fw-bold">Nidith V S</div>
+                    <a href="https://www.linkedin.com/in/nidith" target="_blank" rel="noopener" class="mt-1"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %} 

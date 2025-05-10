@@ -1,0 +1,11 @@
+Flask==3.0.2
+Flask-SocketIO==5.3.6
+pandas==2.2.1
+numpy==1.26.4
+yfinance==0.2.37
+yfinance_cache
+requests==2.31.0
+python-dotenv==1.0.1
+gunicorn==21.2.0
+python-engineio==4.9.1
+python-socketio==5.11.1

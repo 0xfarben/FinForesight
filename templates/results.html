@@ -1,0 +1,642 @@
+{% extends "layout.html" %}
+
+<!-- Add required scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.3.2/justgage.min.js"></script>
+
+{% block content %}
+<div class="results-section">
+    <div class="results-header">
+        <h1>Financial Analysis for {{ inputs.ticker }}</h1>
+        <p class="text-muted">
+            Period: {{ inputs.start_date }} to {{ inputs.end_date }} | 
+            Quarter: {{ inputs.quarter }}
+        </p>
+    </div>
+    
+    <!-- Progress Tracker -->
+    <div class="progress-container">
+        <div class="progress">
+            <div id="analysisProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
+        <div class="progress-steps">
+            <div id="data_analystStep" class="progress-step active">
+                <div class="progress-step-dot"></div>
+                <div class="progress-step-label">Data Collection</div>
+            </div>
+            <div id="trade_strategyStep" class="progress-step">
+                <div class="progress-step-dot"></div>
+                <div class="progress-step-label">Strategy</div>
+            </div>
+            <div id="trade_advisorStep" class="progress-step">
+                <div class="progress-step-dot"></div>
+                <div class="progress-step-label">Prediction</div>
+            </div>
+            <div id="risk_advisorStep" class="progress-step">
+                <div class="progress-step-dot"></div>
+                <div class="progress-step-label">Risk</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="workflowStatus" class="mb-4">
+        <!-- Overall workflow status will be displayed here -->
+    </div>
+    
+    <!-- AI Agents Container -->
+    <div class="row" id="agentContainer">
+        <!-- Data Analyst Agent -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div id="data_analystCard" class="card h-100 agent-card agent-animation active">
+                <div class="agent-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="agent-name">Data Analyst</h3>
+                <p class="agent-description">
+                    Collecting and processing financial data from multiple sources.
+                </p>
+                <span id="data_analystStatus" class="agent-status status-processing">Processing</span>
+            </div>
+        </div>
+        
+        <!-- Trade Strategy Agent -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div id="trade_strategyCard" class="card h-100 agent-card agent-animation">
+                <div class="agent-icon">
+                    <i class="fas fa-chess"></i>
+                </div>
+                <h3 class="agent-name">Strategy Developer</h3>
+                <p class="agent-description">
+                    Developing optimal trading strategies based on the data.
+                </p>
+                <span id="trade_strategyStatus" class="agent-status status-pending">Pending</span>
+            </div>
+        </div>
+        
+        <!-- Trade Advisor Agent -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div id="trade_advisorCard" class="card h-100 agent-card agent-animation">
+                <div class="agent-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="agent-name">Trading Advisor</h3>
+                <p class="agent-description">
+                    Generating market predictions and recommendations.
+                </p>
+                <span id="trade_advisorStatus" class="agent-status status-pending">Pending</span>
+            </div>
+        </div>
+        
+        <!-- Risk Advisor Agent -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div id="risk_advisorCard" class="card h-100 agent-card agent-animation">
+                <div class="agent-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="agent-name">Risk Advisor</h3>
+                <p class="agent-description">
+                    Analyzing investment risks and providing safeguards.
+                </p>
+                <span id="risk_advisorStatus" class="agent-status status-pending">Pending</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Containers -->
+    <div class="row mt-5">
+        <!-- Data Analyst Results -->
+        <div class="col-12 mb-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-database me-2"></i> Data Analysis
+                    </h4>
+                    <span class="badge bg-primary">Data Analyst Agent</span>
+                </div>
+                <div class="card-body">
+                    <div id="data_analystResults" style="display: none;">
+                        <!-- Results will be loaded here -->
+                    </div>
+                    <div class="text-center py-5" id="data_analystLoading">
+                        <div class="loading-spinner mb-3"></div>
+                        <p>Data collection in progress...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trade Strategy Results -->
+        <div class="col-12 mb-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chess me-2"></i> Trading Strategies
+                    </h4>
+                    <span class="badge bg-primary">Strategy Developer Agent</span>
+                </div>
+                <div class="card-body">
+                    <div id="trade_strategyResults" style="display: none;">
+                        <!-- Results will be loaded here -->
+                    </div>
+                    <div class="text-center py-5" id="trade_strategyLoading">
+                        <div class="loading-spinner mb-3"></div>
+                        <p>Strategy development in progress...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trade Advisor Results -->
+        <div class="col-12 mb-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i> Trading Recommendation
+                    </h4>
+                    <span class="badge bg-primary">Trading Advisor Agent</span>
+                </div>
+                <div class="card-body">
+                    <div id="trade_advisorResults" style="display: none;">
+                        <!-- Results will be loaded here -->
+                    </div>
+                    <div class="text-center py-5" id="trade_advisorLoading">
+                        <div class="loading-spinner mb-3"></div>
+                        <p>Generating trading recommendations...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Risk Advisor Results -->
+        <div class="col-12 mb-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-shield-alt me-2"></i> Risk Assessment
+                    </h4>
+                    <span class="badge bg-primary">Risk Advisor Agent</span>
+                </div>
+                <div class="card-body">
+                    <div id="risk_advisorResults" style="display: none;">
+                        <!-- Results will be loaded here -->
+                    </div>
+                    <div class="text-center py-5" id="risk_advisorLoading">
+                        <div class="loading-spinner mb-3"></div>
+                        <p>Performing risk assessment...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row mt-3 mb-5">
+        <div class="col-12 text-center">
+            <a href="/index/#analyzeCard" class="btn btn-primary">
+                <i class="fas fa-redo me-2"></i> Run New Analysis
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+function updateDataAnalysisResults(data) {
+    const container = document.getElementById('data_analystResults');
+    let html = '';
+    
+    if (!data || !data.sections) {
+        html = '<div class="alert alert-danger">No data available</div>';
+    } else {
+        // Add ticker and date
+        html += `<h3>${data.ticker} Analysis</h3>`;
+        html += `<p class="text-muted">Analysis Date: ${data.analysis_date}</p>`;
+        
+        // Add each section
+        data.sections.forEach(section => {
+            html += `
+                <div class="card mb-3">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">${section.title}</h5>
+                    </div>
+                    <div class="card-body">`;
+            
+            if (section.error) {
+                html += `<div class="alert alert-danger">${section.error}</div>`;
+            } else if (section.data) {
+                html += '<div class="row">';
+                Object.entries(section.data).forEach(([key, value]) => {
+                    html += `
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong class="text-muted">${key}:</strong>
+                                <span class="ms-2">${value}</span>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            }
+            
+            html += `</div></div>`;
+        });
+    }
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    document.getElementById('data_analystLoading').style.display = 'none';
+}
+
+function updateTradeStrategyResults(data) {
+    const container = document.getElementById('trade_strategyResults');
+    let html = '';
+    
+    if (!data || data.error) {
+        html = `<div class="alert alert-danger">${data?.error || 'No strategy data available'}</div>`;
+    } else {
+        // MA Strategy
+        html += `
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Moving Average Crossover Strategy</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Win Rate:</strong> ${(data.ma_strategy.performance.win_rate * 100).toFixed(2)}%</p>
+                            <p><strong>Total Trades:</strong> ${data.ma_strategy.performance.total_trades}</p>
+                            <p><strong>Current Signal:</strong> ${data.ma_strategy.performance.current_signal}</p>
+                            <p><strong>Short MA:</strong> ${data.ma_strategy.performance.current_short_ma.toFixed(2)}</p>
+                            <p><strong>Long MA:</strong> ${data.ma_strategy.performance.current_long_ma.toFixed(2)}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="maStrategyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // RSI Strategy
+        html += `
+            <div class="card">
+                <div class="card-header">
+                    <h5>RSI Strategy</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Win Rate:</strong> ${(data.rsi_strategy.performance.win_rate * 100).toFixed(2)}%</p>
+                            <p><strong>Total Trades:</strong> ${data.rsi_strategy.performance.total_trades}</p>
+                            <p><strong>Current RSI:</strong> ${data.rsi_strategy.performance.current_rsi.toFixed(2)}</p>
+                            <p><strong>Signal:</strong> ${data.rsi_strategy.performance.current_signal}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="rsiStrategyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Initialize charts after HTML is added
+        setTimeout(() => {
+            // MA Strategy Chart
+            const maCtx = document.getElementById('maStrategyChart').getContext('2d');
+            new Chart(maCtx, {
+                type: 'line',
+                data: {
+                    labels: data.ma_strategy.recent_data.dates,
+                    datasets: [{
+                        label: 'Price',
+                        data: data.ma_strategy.recent_data.prices,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }, {
+                        label: 'Short MA',
+                        data: data.ma_strategy.recent_data.short_ma,
+                        borderColor: 'rgb(255, 99, 132)',
+                        tension: 0.1
+                    }, {
+                        label: 'Long MA',
+                        data: data.ma_strategy.recent_data.long_ma,
+                        borderColor: 'rgb(54, 162, 235)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+
+            // RSI Strategy Chart
+            const rsiCtx = document.getElementById('rsiStrategyChart').getContext('2d');
+            new Chart(rsiCtx, {
+                type: 'line',
+                data: {
+                    labels: data.rsi_strategy.recent_data.dates,
+                    datasets: [{
+                        label: 'RSI',
+                        data: data.rsi_strategy.recent_data.rsi,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }, 0);
+    }
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    document.getElementById('trade_strategyLoading').style.display = 'none';
+}
+
+function updateTradeAdvisorResults(data) {
+    const container = document.getElementById('trade_advisorResults');
+    let html = '';
+    
+    if (!data || !data.recommendation) {
+        html = '<div class="alert alert-danger">No recommendation available</div>';
+    } else {
+        html += `
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Trading Recommendation</h5>
+                </div>
+                <div class="card-body">
+                    <p class="lead">${data.recommendation.recommendation_text}</p>
+                    <p><strong>Confidence:</strong> ${data.recommendation.confidence}%</p>
+                    <p><strong>Signal:</strong> ${data.recommendation.signal}</p>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Technical Analysis</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Current Price:</strong> $${data.recommendation.technical_analysis.current_price}</p>
+                            <p><strong>RSI:</strong> ${data.recommendation.technical_analysis.RSI}</p>
+                            <p><strong>RSI Signal:</strong> ${data.recommendation.technical_analysis.RSI_signal}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="technicalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>Sentiment Analysis</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Overall Sentiment:</strong> ${data.recommendation.sentiment_analysis.sentiment}</p>
+                    <p><strong>Sentiment Score:</strong> ${data.recommendation.sentiment_analysis.sentiment_score}</p>
+                    <p><strong>Articles Analyzed:</strong> ${data.recommendation.sentiment_analysis.articles_count}</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    document.getElementById('trade_advisorLoading').style.display = 'none';
+}
+
+function updateRiskAdvisorResults(data) {
+    const container = document.getElementById('risk_advisorResults');
+    let html = '';
+    
+    if (!data || !data.risk_assessment) {
+        html = '<div class="alert alert-danger">No risk assessment available</div>';
+    } else {
+        html += `
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Risk Assessment</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Risk Level:</strong> ${data.risk_assessment.risk_level}</p>
+                    <p><strong>Risk Score:</strong> ${data.risk_assessment.risk_score}</p>
+                    <p><strong>Risk Factors:</strong></p>
+                    <ul>
+                        ${data.risk_assessment.risk_factors.map(factor => `<li>${factor}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>Detailed Risk Metrics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Volatility:</strong> ${data.risk_assessment.volatility.recent_volatility}%</p>
+                            <p><strong>Max Drawdown:</strong> ${data.risk_assessment.max_drawdown.max_drawdown}%</p>
+                            <p><strong>Beta:</strong> ${data.risk_assessment.beta.beta}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="riskChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    document.getElementById('risk_advisorLoading').style.display = 'none';
+}
+
+function runNextAgent(currentAgent) {
+    const nextAgent = {
+        'data_analyst': 'trade_strategy',
+        'trade_strategy': 'trade_advisor',
+        'trade_advisor': 'risk_advisor'
+    }[currentAgent];
+    
+    if (nextAgent) {
+        fetch(`/run_agent/${nextAgent}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                updateAgentStatus(nextAgent, 'complete');
+                switch (nextAgent) {
+                    case 'trade_strategy':
+                        updateTradeStrategyResults(data.results.trade_strategy);
+                        break;
+                    case 'trade_advisor':
+                        updateTradeAdvisorResults(data.results.trade_advisor);
+                        break;
+                    case 'risk_advisor':
+                        updateRiskAdvisorResults(data.results.risk_advisor);
+                        break;
+                }
+                runNextAgent(nextAgent);
+            } else {
+                updateAgentStatus(nextAgent, 'error');
+                throw new Error(data.message || 'Failed to run agent');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            updateAgentStatus(nextAgent, 'error');
+        });
+    }
+}
+
+function updateAgentStatus(agentId, status) {
+    const statusElement = document.getElementById(`${agentId}Status`);
+    const cardElement = document.getElementById(`${agentId}Card`);
+    
+    if (statusElement && cardElement) {
+        // Remove all status classes
+        statusElement.classList.remove('status-pending', 'status-processing', 'status-complete', 'status-error');
+        cardElement.classList.remove('active');
+        
+        // Add appropriate status class
+        switch (status) {
+            case 'complete':
+                statusElement.classList.add('status-complete');
+                statusElement.textContent = 'Completed';
+                break;
+            case 'processing':
+                statusElement.classList.add('status-processing');
+                cardElement.classList.add('active');
+                statusElement.textContent = 'Processing';
+                break;
+            case 'error':
+                statusElement.classList.add('status-error');
+                statusElement.textContent = 'Error';
+                break;
+            default:
+                statusElement.classList.add('status-pending');
+                statusElement.textContent = 'Pending';
+        }
+    }
+}
+
+function fetchDataAnalystResults() {
+    // Prevent multiple calls
+    if (document.getElementById('data_analystStatus').classList.contains('status-processing')) {
+        return;
+    }
+
+    // Get the analysis inputs from the page
+    const ticker = '{{ inputs.ticker }}';
+    const startDate = '{{ inputs.start_date }}';
+    const endDate = '{{ inputs.end_date }}';
+    const quarter = '{{ inputs.quarter }}';
+
+    // Update status to processing
+    updateAgentStatus('data_analyst', 'processing');
+
+    // Make the AJAX call
+    fetch('/run_agent/data_analyst', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            updateDataAnalysisResults(data.results.data_analyst.data);
+            updateAgentStatus('data_analyst', 'complete');
+            // Start the next agent
+            runNextAgent('data_analyst');
+        } else {
+            throw new Error(data.message || 'Failed to fetch results');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        updateAgentStatus('data_analyst', 'error');
+        document.getElementById('data_analystResults').innerHTML = `
+            <div class="alert alert-danger">
+                Error fetching results: ${error.message}
+            </div>
+        `;
+        document.getElementById('data_analystResults').style.display = 'block';
+        document.getElementById('data_analystLoading').style.display = 'none';
+    });
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    // Start with data analyst
+    fetchDataAnalystResults();
+});
+</script>
+
+<style>
+.card-header.bg-light {
+    background-color: #f8f9fa;
+}
+
+.status-complete {
+    color: #28a745;
+}
+
+.status-processing {
+    color: #007bff;
+}
+
+.status-error {
+    color: #dc3545;
+}
+
+.status-pending {
+    color: #6c757d;
+}
+
+.agent-card.active {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.loading-spinner {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid #f3f3f3;
+    border-top: 0.25rem solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+{% endblock %}

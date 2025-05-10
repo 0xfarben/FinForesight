@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinForesight - AI-Powered Financial Analysis</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Multi-Agent AI-driven platform for data analysis, trading strategy, and trading risk management.">
+    <meta name="keywords" content="AI trading, algorithmic trading, risk management, data analysis, trading strategies, fintech">
+    <meta name="author" content="FinForesight">
+
+    <!-- Open Graph (OG) - Works for WhatsApp, Facebook, LinkedIn -->
+    <meta property="og:title" content="FinForesight | AI-Driven Trading Platform">
+    <meta property="og:description" content="AI solutions for data analysis, trading strategies, and risk management.">
+    <meta property="og:image" content="https://iili.io/3NJppYg.png">
+    <meta property="og:url" content="https://finforesight.dev/">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card (For Twitter Previews) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FinForesight | AI-Driven Trading Platform">
+    <meta name="twitter:description" content="AI-powered platform for trading strategy, data analysis, and risk management.">
+    <meta name="twitter:image" content="https://iili.io/3NJppYg.png">
+
+    
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="FinForesight Logo" height="40" class="d-inline-block align-top">
+                <span class="ms-2 fw-semibold" style="color: #fff; font-size: 1.4rem;">FinForesight</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li> -->
+                    
+                    <!-- <li class="nav-item">
+                        <a class="nav-link {% if '/technical_indicators' in request.path %}active{% endif %}" href="/technical_indicators">
+                            <i class="fas fa-signal me-1"></i> Technical Indicators
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">
+                            <i class="fas fa-users me-1"></i> About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-fintbot-btn" href="http://localhost:3000" target="_blank" rel="noopener">
+                            <span class="fab-icon">🤖</span>
+                            <span class="fab-label">Try our Finbot</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mb-5">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="custom-footer mt-auto">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <!-- Left: Logo, tagline, email input -->
+          <div class="col-md-4 mb-4 mb-md-0 text-md-start text-center">
+            <div class="d-flex align-items-center mb-2 justify-content-md-start justify-content-center">
+              <img src="{{ url_for('static', filename='img/logo.png') }}" alt="FinForesight Logo" height="38" class="me-2">
+              <span class="fs-4 fw-bold" style="color: #fff;">FinForesight</span>
+            </div>
+            <div class="footer-tagline mb-3 text-muted">Make smarter, data-driven financial decisions.</div>
+            <!-- <a href="mailto:contact@finforesight.dev" class="btn btn-primary mt-2">
+              <i class="fas fa-envelope"></i> Contact Us
+            </a> -->
+          </div>
+          <!-- Center: Navigation links -->
+          <div class="col-md-4 mb-4 mb-md-0 text-center">
+            <div class="row">
+              <div class="col-12">
+                
+                <ul class="footer-links-list">
+                  <li><a href="/about" class="footer-link">About</a></li>
+                  <li><a href="/index/#analyzeCard" class="footer-link">AI Analysis</a></li>
+                  <!-- <li><a href="mailto:contact@finforesight.dev" class="footer-link">Contact</a></li> -->
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+          <!-- Right: Contact & Social -->
+          <div class="col-md-4 text-md-end text-center">
+            <div class="mb-2">
+              <span class="fw-bold">Let's chat!</span> <a href="mailto:contact@finforesight.dev" class="footer-link">contact@finforesight.dev</a>
+            </div>
+            <div class="footer-social mt-2">
+              <!-- <a href="#" class="footer-social-link me-2"><i class="fab fa-twitter fa-lg"></i></a> -->
+              <!-- <a href="#" class="footer-social-link me-2"><i class="fab fa-linkedin fa-lg"></i></a> -->
+              <a href="#" class="footer-social-link me-2"><i class="fab fa-github fa-lg"></i></a>
+              <!-- <a href="#" class="footer-social-link"><i class="fab fa-instagram fa-lg"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/top_stocks.js') }}"></script>
+
+    <!-- Add scroll effect for navbar -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.3.2/justgage.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</body>
+</html>
+

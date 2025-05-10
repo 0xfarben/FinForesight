@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+FinBot/
+data_archive/*
+!data_archive/.gitkeep
+strategies_archive/*
+!strategies_archive/.gitkeep
+predictions_archive/*
+!predictions_archive/.gitkeep
+risk_archive/*
+!risk_archive/.gitkeep
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db 

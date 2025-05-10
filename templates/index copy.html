@@ -1,0 +1,260 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h1 class="display-4 mb-3">
+                    <span class="glow-text">AI-Powered</span> Market Intelligence
+                </h1>
+                <p class="lead mb-4">
+                    Gain unparalleled market insights with our autonomous AI agents for data analysis,
+                    trading strategy, prediction, and risk assessment.
+                </p>
+                <a href="#analyzeCard" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-rocket me-2"></i> Start Analysis
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- AI Agents Overview -->
+<div class="row mb-5">
+    <div class="col-12 mb-4">
+        <h2 class="text-center">Our AI Agents</h2>
+        <p class="text-center text-muted">
+            Four specialized agents working together to deliver comprehensive financial analysis
+        </p>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 agent-card agent-animation">
+            <div class="agent-icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <h3 class="agent-name">Data Analyst</h3>
+            <p class="agent-description">
+                Collects and processes financial data from multiple sources for comprehensive analysis.
+            </p>
+            <ul class="text-start small text-muted">
+                <li>Historical prices</li>
+                <li>Financial statements</li>
+                <li>News sentiment</li>
+                <li>Earnings transcripts</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 agent-card agent-animation">
+            <div class="agent-icon">
+                <i class="fas fa-chess"></i>
+            </div>
+            <h3 class="agent-name">Strategy Developer</h3>
+            <p class="agent-description">
+                Develops and optimizes trading strategies based on analyzed market data.
+            </p>
+            <ul class="text-start small text-muted">
+                <li>Moving average crossover</li>
+                <li>RSI-based strategies</li>
+                <li>Backtesting & optimization</li>
+                <li>Performance metrics</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 agent-card agent-animation">
+            <div class="agent-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="agent-name">Trading Advisor</h3>
+            <p class="agent-description">
+                Forecasts market trends and provides actionable trading recommendations.
+            </p>
+            <ul class="text-start small text-muted">
+                <li>Technical analysis signals</li>
+                <li>Price momentum indicators</li>
+                <li>Sentiment analysis</li>
+                <li>Customized recommendations</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 agent-card agent-animation">
+            <div class="agent-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="agent-name">Risk Advisor</h3>
+            <p class="agent-description">
+                Assesses investment risks and provides risk management recommendations.
+            </p>
+            <ul class="text-start small text-muted">
+                <li>Volatility analysis</li>
+                <li>Value at Risk (VaR)</li>
+                <li>Maximum drawdown</li>
+                <li>Risk mitigation strategies</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Analysis Form -->
+<div class="row mb-5" id="analyzeCard">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Start Financial Analysis</h3>
+            </div>
+            <div class="card-body">
+                <form id="analyzeForm" action="/analyze" method="post">
+                    <div class="mb-3">
+                        <label for="ticker" class="form-label">Stock Ticker Symbol</label>
+                        <input type="text" class="form-control" id="ticker" name="ticker" placeholder="e.g. AAPL, MSFT, TSLA" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="startDate" name="start_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="endDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="endDate" name="end_date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="quarter" class="form-label">Earnings Quarter</label>
+                        <select class="form-select" id="quarter" name="quarter">
+                            <option value="2023Q4">2023 Q4</option>
+                            <option value="2023Q3">2023 Q3</option>
+                            <option value="2023Q2">2023 Q2</option>
+                            <option value="2023Q1" selected>2023 Q1</option>
+                            <option value="2022Q4">2022 Q4</option>
+                            <option value="2022Q3">2022 Q3</option>
+                            <option value="2022Q2">2022 Q2</option>
+                            <option value="2022Q1">2022 Q1</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-bolt me-2"></i> Run Autonomous Analysis
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Stocks Section -->
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h2 class="section-title">Top Stocks to Watch</h2>
+        <p class="text-muted">Explore the performance of top stocks with real-time data and interactive graphs.</p>
+    </div>
+</div>
+
+<div id="top-stocks-container" class="mb-5">
+    <div class="text-center p-5">
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Fetching latest market data...</p>
+    </div>
+</div>
+
+<!-- Technical Indicators Section (if this is the technical indicators page) -->
+{% if section == 'technical_indicators' %}
+<div class="row mb-5">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Technical Indicators</h3>
+            </div>
+            <div class="card-body">
+                <form id="technicalIndicatorsForm" action="/technical_indicators" method="post">
+                    <div class="mb-3">
+                        <label for="symbol" class="form-label">Stock Ticker Symbol</label>
+                        <input type="text" class="form-control" id="symbol" name="symbol" placeholder="e.g. AAPL" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="function" class="form-label">Indicator</label>
+                            <select class="form-select" id="function" name="function" required>
+                                <option value="" selected disabled>Select indicator</option>
+                                <option value="SMA">Simple Moving Average (SMA)</option>
+                                <option value="EMA">Exponential Moving Average (EMA)</option>
+                                <option value="RSI">Relative Strength Index (RSI)</option>
+                                <option value="MACD">MACD</option>
+                                <option value="BBANDS">Bollinger Bands</option>
+                                <option value="ADX">Average Directional Index (ADX)</option>
+                                <option value="CCI">Commodity Channel Index (CCI)</option>
+                                <option value="STOCH">Stochastic Oscillator</option>
+                                <option value="OBV">On-Balance Volume (OBV)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="interval" class="form-label">Interval</label>
+                            <select class="form-select" id="interval" name="interval" required>
+                                <option value="daily" selected>Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="60min">60 Minutes</option>
+                                <option value="30min">30 Minutes</option>
+                                <option value="15min">15 Minutes</option>
+                                <option value="5min">5 Minutes</option>
+                                <option value="1min">1 Minute</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="time_period" class="form-label">Time Period</label>
+                            <input type="number" class="form-control" id="time_period" name="time_period" value="14" min="1" max="200" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="series_type" class="form-label">Series Type</label>
+                            <select class="form-select" id="series_type" name="series_type">
+                                <option value="close" selected>Close</option>
+                                <option value="open">Open</option>
+                                <option value="high">High</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="days" class="form-label">Number of Results</label>
+                        <input type="number" class="form-control" id="days" name="days" value="30" min="1" max="100">
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calculator me-2"></i> Calculate Indicator
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="indicatorLoading" class="text-center my-4" style="display: none;">
+                    <div class="loading-spinner mb-3"></div>
+                    <p>Calculating indicator...</p>
+                </div>
+                
+                <div id="indicatorResults" class="mt-4">
+                    <!-- Results will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
