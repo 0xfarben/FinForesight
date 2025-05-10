@@ -1,25 +1,28 @@
-# Financial Analysis and Trading Platform
+# Financial Analysis and Trading Platform (FinForesight)
 
-A sophisticated financial analysis and trading platform that combines multiple AI agents for comprehensive market analysis, trading strategies, and risk management.
+A sophisticated financial analysis and trading platform leveraging multiple AI agents for market analysis, trading strategies, and risk management, integrated with **DTMAC** (Dynamic Task Management and Coordination) for seamless multi-agent collaboration.
 
 ## 🚀 Features
 
-- **Multi-Agent System**: Coordinated AI agents for different aspects of financial analysis
-- **Real-time Data Processing**: Live stock data analysis and processing
-- **Technical Analysis**: Advanced technical indicators and market analysis
-- **Risk Management**: Comprehensive risk assessment and management
-- **Trading Strategies**: AI-powered trading strategy development
-- **Data Archiving**: Systematic storage of historical data and analysis
-- **WebSocket Support**: Real-time updates and notifications
-- **AI Chatbot**: Groq-powered chatbot for real-time market queries and analysis [FinBot](https://github.com/0xfarben/FinBot.git)
+- **Multi-Agent System**: AI agents performing distinct roles like stock analysis, strategy development, and risk management.
+- **DTMAC Integration**: Advanced coordination system that enhances agent interaction and collaboration.
+- **Real-time Data Processing**: Live stock data fetching and analysis with immediate feedback.
+- **Technical Analysis**: Incorporation of advanced technical indicators and market analysis techniques.
+- **Risk Management**: Advanced strategies to assess, minimize, and manage market risk.
+- **Trading Strategies**: Development of AI-powered algorithms for trading decision-making.
+- **Data Archiving**: Comprehensive storage and management of historical data and analysis.
+- **WebSocket Support**: Real-time updates, trading signals, and alerts.
+- **AI Chatbot**: **FinBot** – A Groq-powered chatbot that provides real-time market insights and answers.
+  - [GitHub: FinBot](https://github.com/0xfarben/FinBot.git)
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Python/Flask
+- **Backend**: Python, Flask
 - **Data Processing**: Pandas, NumPy
 - **Real-time Communication**: Flask-SocketIO
 - **Data Storage**: Local file system with structured archiving
-- **AI/ML**: Custom AI agents for different analysis aspects
+- **AI/ML**: Custom AI agents for market analysis and decision-making
+- **Coordination System**: DTMAC (Dynamic Task Management and Coordination)
 
 ## 📋 Prerequisites
 
@@ -97,7 +100,6 @@ python app.py
 3. Key endpoints:
    - `/`: Main dashboard
    - `/analyze`: Stock analysis interface
-   - `/technical_indicators`: Technical analysis tools
    - `/api/top_stocks`: Top performing stocks API
 
 ## 🤖 AI Agents
@@ -121,6 +123,13 @@ python app.py
 - Assesses market risks
 - Provides risk management strategies
 - Monitors portfolio risk levels
+
+## 🧠 DTMAC - Dynamic Task Management and Coordination
+The DTMAC system is a coordination framework that helps manage and synchronize tasks between multiple AI agents, enabling them to communicate and collaborate seamlessly. DTMAC enhances the platform by ensuring that each agent can work independently while contributing to a unified strategy.
+
+- Task Assignment: Automatically assigns tasks to agents based on real-time analysis and needs.
+- Data Sharing: Facilitates data exchange between agents for more informed decision-making.
+- Collaboration: Ensures smooth collaboration between agents with minimal conflicts.
 
 ## 📊 Data Management
 
