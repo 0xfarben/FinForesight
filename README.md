@@ -30,8 +30,8 @@ A sophisticated financial analysis and trading platform that combines multiple A
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/0xfarben/FinForesight.git
+cd FinForesight
 ```
 
 2. Create a virtual environment:
@@ -42,27 +42,38 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r setup.txt
 ```
 
 4. Set up environment variables:
 ```bash
 export SESSION_SECRET="your-secret-key"  # On Windows: set SESSION_SECRET=your-secret-key
+export ALPHA_VANTAGE_API_KEY="your-api-key"  # On Windows: set ALPHA_VANTAGE_API_KEY=your-api-key
 ```
 
 ## 🏗️ Project Structure
 
 ```
 ├── agents/                 # AI agent implementations
+|   ├── base_agent.py  
 │   ├── dtmac.py           # DTMAC coordination system
+|   ├── orchestrator.py  
 │   ├── data_analyst_agent.py
 │   ├── trade_strategy_agent.py
 │   ├── trade_advisor_agent.py
 │   └── risk_advisor_agent.py
 ├── services/              # Core services
-│   ├── historic_data.py
-│   ├── stock_data.py
-│   └── stock_overview.py
+│   ├── historic_data.py           # Historical data management
+│   ├── historic_data_original.py  # Original historical data implementation
+│   ├── stock_data.py             # Stock data fetching and processing
+│   ├── stock_overview.py         # Stock overview and analysis
+│   ├── technical_indicator.py    # Technical analysis indicators
+│   ├── ratios.py                 # Financial ratios calculations
+│   ├── financial_statement.py    # Financial statement analysis
+│   ├── economics.py             # Economic indicators and analysis
+│   ├── news_sentiment.py        # News sentiment analysis
+│   ├── news_sentiment_backup.py # Backup of news sentiment analysis
+│   └── earning_call_transcript.py # Earnings call analysis
 ├── templates/            # HTML templates
 ├── static/              # Static assets
 ├── data_archive/        # Historical data storage
@@ -70,7 +81,7 @@ export SESSION_SECRET="your-secret-key"  # On Windows: set SESSION_SECRET=your-s
 ├── predictions_archive/ # Market predictions storage
 ├── risk_archive/        # Risk analysis storage
 ├── app.py              # Main application file
-└── requirements.txt    # Python dependencies
+└── setup.txt    # Python dependencies
 ```
 
 ## 🚀 Usage
