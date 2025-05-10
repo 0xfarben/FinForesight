@@ -49,7 +49,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r setup.txt
 ```
 
-4. Set up environment variables:
+4. Set up environment variables (.env file can also be used):
 ```bash
 export SESSION_SECRET="your-secret-key"  # On Windows: set SESSION_SECRET=your-secret-key
 export ALPHA_VANTAGE_API_KEY="your-api-key"  # On Windows: set ALPHA_VANTAGE_API_KEY=your-api-key
