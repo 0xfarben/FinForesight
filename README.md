@@ -2,8 +2,9 @@
 
 A sophisticated financial analysis and trading platform leveraging multiple AI agents for market analysis, trading strategies, and risk management, integrated with **DTMAC** (Dynamic Task Management and Coordination) for seamless multi-agent collaboration.
 
+```md
 ![logo](https://github.com/user-attachments/assets/208f772b-0143-4a53-99fe-56587192b128)
-![FinForesight-Logo](https://github.com/user-attachments/assets/6cf5551b-75bc-47c0-a3d5-b186b12c4ca1)
+```
 
 ## 🚀 Features
 
