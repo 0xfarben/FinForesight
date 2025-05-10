@@ -49,7 +49,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r setup.txt
 ```
 
-4. Set up environment variables (.env file can also be used):
+4. Set up environment variables [.env file (in root) can also be used]:
 ```bash
 export SESSION_SECRET="your-secret-key"  # On Windows: set SESSION_SECRET=your-secret-key
 export ALPHA_VANTAGE_API_KEY="your-api-key"  # On Windows: set ALPHA_VANTAGE_API_KEY=your-api-key
@@ -68,7 +68,6 @@ export ALPHA_VANTAGE_API_KEY="your-api-key"  # On Windows: set ALPHA_VANTAGE_API
 │   └── risk_advisor_agent.py
 ├── services/              # Core services
 │   ├── historic_data.py           # Historical data management
-│   ├── historic_data_original.py  # Original historical data implementation
 │   ├── stock_data.py             # Stock data fetching and processing
 │   ├── stock_overview.py         # Stock overview and analysis
 │   ├── technical_indicator.py    # Technical analysis indicators
@@ -76,7 +75,6 @@ export ALPHA_VANTAGE_API_KEY="your-api-key"  # On Windows: set ALPHA_VANTAGE_API
 │   ├── financial_statement.py    # Financial statement analysis
 │   ├── economics.py             # Economic indicators and analysis
 │   ├── news_sentiment.py        # News sentiment analysis
-│   ├── news_sentiment_backup.py # Backup of news sentiment analysis
 │   └── earning_call_transcript.py # Earnings call analysis
 ├── templates/            # HTML templates
 ├── static/              # Static assets
