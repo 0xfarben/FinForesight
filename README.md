@@ -28,7 +28,7 @@ A sophisticated financial analysis and trading platform leveraging multiple AI a
 - **AI/ML**: Custom AI agents for market analysis and decision-making
 - **Coordination System**: DTMAC (Dynamic Task Management and Coordination)
 
-## 🛠️ Technology Stack
+## Screenshots
 - Homepage
 ![47-6](https://github.com/user-attachments/assets/097a64c0-6b75-4115-a7db-6b5fe6fa6e68)
 
@@ -44,7 +44,7 @@ A sophisticated financial analysis and trading platform leveraging multiple AI a
 - Agents Execution Flow
 ![50-11](https://github.com/user-attachments/assets/41cf0525-be4f-4046-bcd0-bcb38f824978)
 
-- Data Analyzer Agent
+- Data Analyst Agent
 ![50-10](https://github.com/user-attachments/assets/b75560f4-397b-40a1-832b-8f5b8b65e3d5)
 
 - Trade Strategy Developer Agent
