@@ -29,31 +29,31 @@ A sophisticated financial analysis and trading platform leveraging multiple AI a
 - **Coordination System**: DTMAC (Dynamic Task Management and Coordination)
 
 ## Screenshots
-- Homepage
+### Homepage
 ![47-6](https://github.com/user-attachments/assets/097a64c0-6b75-4115-a7db-6b5fe6fa6e68)
 
-- Our Agents
+### Our Agents
 ![48-8](https://github.com/user-attachments/assets/be5d5647-403d-4f26-8c21-29fbf705b518)
 
-- Anlayzer Block
+### Anlayzer Block
 ![48-7](https://github.com/user-attachments/assets/8ab1d058-4ddc-4da1-bb42-1306f483d6fc)
 
-- Display of Top Performace Stocks
+### Display of Top Performace Stocks
 ![49-9](https://github.com/user-attachments/assets/cdeb075a-8b26-414b-ad44-030958d4075d)
 
-- Agents Execution Flow
+### Agents Execution Flow
 ![50-11](https://github.com/user-attachments/assets/41cf0525-be4f-4046-bcd0-bcb38f824978)
 
-- Data Analyst Agent
+### Data Analyst Agent
 ![50-10](https://github.com/user-attachments/assets/b75560f4-397b-40a1-832b-8f5b8b65e3d5)
 
-- Trade Strategy Developer Agent
+### Trade Strategy Developer Agent
 ![51-13](https://github.com/user-attachments/assets/6b47b465-68dd-4473-98c0-8b0dc6d61f60)
 
-- Trade Advisor Agent
+### Trade Advisor Agent
 ![51-12](https://github.com/user-attachments/assets/e7049071-e704-4f4f-9dac-893101486865)
 
-- Risk Advisor Agent (coming soon..)
+### Risk Advisor Agent (coming soon..)
 
 ## 📋 Prerequisites
 
