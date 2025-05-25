@@ -55,6 +55,9 @@ A sophisticated financial analysis and trading platform leveraging multiple AI a
 
 ### Risk Advisor Agent (coming soon..)
 
+## 📋Data Flow Digram
+![22-4](https://github.com/user-attachments/assets/15e6e7c6-da5e-4993-9c88-b81096e77aeb)
+
 ## 📋 Prerequisites
 
 - Python 3.8+
